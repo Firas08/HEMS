@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ HEMS Energie-Dashboard - EnFlex.IT</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="dashboard-container">
+
+    <!-- Header moderne -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <h1 class="dashboard-title">
+                <span class="title-icon">⚡</span>
+                HEMS Energie-Dashboard
+            </h1>
+            <span class="subtitle">Home Energy Management System</span>
+        </div>
+        <div class="header-right">
+            <div class="status-indicator" id="systemStatus">
+                <div class="status-dot"></div>
+                <span>System betriebsbereit</span>
+            </div>
+            <div class="current-time" id="currentTime"></div>
+        </div>
+    </header>
+
+    <!-- Dashboard principal -->
+    <main class="dashboard-main">
+
+        <!-- Ligne 1: Métriques principales -->
+        <section class="metrics-row">
+
+            <!-- Card Production Solaire -->
+            <div class="energy-card solar-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <span class="card-icon">🌞</span>
+                        Solarproduktion
+                    </h3>
+                    <div class="card-status" id="solarStatus">OPTIMAL</div>
+                </div>
+                <div class="city-info" style="text-align: center; margin-bottom: 10px; color: #94a3b8; font-size: 0.875rem;">
+                    📍 <span id="solarCity">-</span>
+                </div>
+                <div class="card-content">
+                    <div class="primary-metric">
+                        <span class="metric-value" id="solarProduction">0.0</span>
+                        <span class="metric-unit">kW</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="circular-progress" id="solarProgress">
+                            <div class="progress-circle">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span id="solarEfficiency">0</span>%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="secondary-metrics">
+                        <div class="secondary-metric">
+                            <span class="label">Heute</span>
+                            <span class="value" id="solarDaily">0.0 kWh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Batterie -->
+            <div class="energy-card battery-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <span class="card-icon">🔋</span>
+                        Batterie
+                    </h3>
+                    <div class="card-status" id="batteryStatus">LADEN</div>
+                </div>
+                <div class="card-content">
+                    <div class="primary-metric">
+                        <span class="metric-value" id="batteryLevel">0</span>
+                        <span class="metric-unit">%</span>
+                    </div>
+                    <div class="battery-visual">
+                        <div class="battery-container">
+                            <div class="battery-fill" id="batteryFill"></div>
+                        </div>
+                    </div>
+                    <div class="secondary-metrics">
+                        <div class="secondary-metric">
+                            <span class="label">Kapazität</span>
+                            <span class="value" id="batteryCapacity">0.0 / 10.0 kWh</span>
+                        </div>
+                        <div class="secondary-metric">
+                            <span class="label">Zustand</span>
+                            <span class="value" id="batteryHealth">98%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Consommation -->
+            <div class="energy-card consumption-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <span class="card-icon">🏠</span>
+                        Verbrauch
+                    </h3>
+                    <div class="card-status" id="consumptionStatus">NORMAL</div>
+                </div>
+                <div class="card-content">
+                    <div class="primary-metric">
+                        <span class="metric-value" id="currentConsumption">0.0</span>
+                        <span class="metric-unit">kW</span>
+                    </div>
+                    <div class="consumption-chart">
+                        <div class="chart-bar" style="height: 60%"></div>
+                        <div class="chart-bar" style="height: 40%"></div>
+                        <div class="chart-bar" style="height: 80%"></div>
+                        <div class="chart-bar" style="height: 70%"></div>
+                        <div class="chart-bar" style="height: 90%"></div>
+                    </div>
+                    <div class="secondary-metrics">
+                        <div class="secondary-metric">
+                            <span class="label">Vorhersage</span>
+                            <span class="value" id="consumptionPrediction">0.0 kW</span>
+                        </div>
+                        <div class="secondary-metric">
+                            <span class="label">Aktive Geräte</span>
+                            <span class="value" id="activeAppliances">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ligne 2: IA et Contrôles -->
+        <section class="control-row">
+
+            <!-- Card Bilan Énergétique -->
+            <div class="energy-card balance-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <span class="card-icon">⚖️</span>
+                        Energiebilanz
+                    </h3>
+                </div>
+                <div class="card-content">
+                    <div class="balance-display">
+                        <div class="balance-value" id="energyBalance">+0.0 kW</div>
+                        <div class="balance-status" id="balanceStatus">AUSGEGLICHEN</div>
+                    </div>
+                    <div class="balance-chart">
+                        <div class="chart-container">
+                            <div class="chart-line"></div>
+                        </div>
+                    </div>
+                    <div class="secondary-metrics">
+                        <div class="secondary-metric">
+                            <span class="label">Kosten heute</span>
+                            <span class="value" id="costToday">0.00€</span>
+                        </div>
+                        <div class="secondary-metric">
+                            <span class="label">Einsparungen</span>
+                            <span class="value" id="savingsToday">0.00€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card IA Manager -->
+            <div class="energy-card ai-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <span class="card-icon">🧠</span>
+                        KI Energie-Manager
+                    </h3>
+                </div>
+                <div class="card-content">
+                    <div class="ai-status" id="aiStatus">Optimierung läuft...</div>
+                    <div class="control-buttons">
+                        <button class="control-btn auto-btn" id="autoModeBtn">
+                            <span class="btn-icon">🤖</span>
+                            Auto Modus
+                        </button>
+                        <button class="control-btn optimize-btn" id="optimizeBtn">
+                            <span class="btn-icon">⚡</span>
+                            Optimieren
+                        </button>
+                    </div>
+                    <div class="secondary-metrics">
+                        <div class="secondary-metric">
+                            <span class="label">Letzte Optimierung</span>
+                            <span class="value" id="lastOptimization">Vor 2s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Actions Rapides -->
+            <div class="energy-card actions-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <span class="card-icon">🎛️</span>
+                        Schnellaktionen
+                    </h3>
+                </div>
+                <div class="card-content">
+                    <div class="action-grid">
+                        <button class="action-btn charge-btn" data-action="charge">
+                            <span class="btn-icon">⬆️</span>
+                            Laden
+                        </button>
+                        <button class="action-btn discharge-btn" data-action="discharge">
+                            <span class="btn-icon">⬇️</span>
+                            Entladen
+                        </button>
+                        <button class="action-btn buy-btn" data-action="buy">
+                            <span class="btn-icon">💳</span>
+                            Kaufen
+                        </button>
+                        <button class="action-btn sell-btn" data-action="sell">
+                            <span class="btn-icon">💰</span>
+                            Verkaufen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="footer-left">
+            <span class="footer-info">HEMS v1.0 - EnFlex.IT Demo</span>
+        </div>
+        <div class="footer-right">
+            <div class="connection-status" id="connectionStatus">
+                <div class="connection-dot"></div>
+                <span>Verbunden</span>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Daten werden geladen...</div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
